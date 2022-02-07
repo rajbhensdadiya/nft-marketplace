@@ -19,6 +19,7 @@ export default function CreateItem() {
     name: "",
     description: "",
   });
+  const [error, setError] = useState();
   const router = useRouter();
 
   async function onChange(e) {
@@ -35,7 +36,10 @@ export default function CreateItem() {
   }
   async function createMarket() {
     const { name, description, price } = formInput;
-    if (!name || !description || !price || !fileUrl) return;
+    if (!name || !description || !price || !fileUrl) {
+      setError("Please Fill al details");
+      return;
+    }
     /* first, upload to IPFS */
     const data = JSON.stringify({
       name,
@@ -110,10 +114,11 @@ export default function CreateItem() {
         )}
         <button
           onClick={createMarket}
-          className="font-bold mt-4 bg-pink-500 text-white rounded p-4 shadow-lg"
+          className="font-bold mt-4 bg-blue-500 text-white rounded p-4 shadow-lg"
         >
           Create Digital Asset
         </button>
+        {error && <span style={{ color: "red" }}>{error}</span>}
       </div>
     </div>
   );
