@@ -60,7 +60,7 @@ export default function MyAssets() {
               <img alt="nft" src={nft.image} className="rounded" />
               <div className="p-4 bg-black">
                 <p className="text-2xl font-bold text-white">
-                  Price - {nft.price} Eth
+                  Price - {nft.price} Matic
                 </p>
               </div>
             </div>

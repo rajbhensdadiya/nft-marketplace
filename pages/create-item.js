@@ -14,7 +14,7 @@ import Market from "../artifacts/contracts/Market.sol/NFTMarket.json";
 
 export default function CreateItem() {
   const [fileUrl, setFileUrl] = useState(null);
-  const [formInput, updateFormInput] = useState({
+  const [formInput, setFormInput] = useState({
     price: "",
     name: "",
     description: "",
@@ -31,13 +31,13 @@ export default function CreateItem() {
       const url = `https://ipfs.infura.io/ipfs/${added.path}`;
       setFileUrl(url);
     } catch (error) {
-      console.log("Error uploading file: ", error);
+      toast.error("Error uploading file: ", error);
     }
   }
   async function createMarket() {
     const { name, description, price } = formInput;
     if (!name || !description || !price || !fileUrl) {
-      setError("Please Fill al details");
+      setError("Please Fill all details then proceed");
       return;
     }
     /* first, upload to IPFS */
@@ -90,22 +90,20 @@ export default function CreateItem() {
         <input
           placeholder="Asset Name"
           className="mt-8 border rounded p-4"
-          onChange={(e) =>
-            updateFormInput({ ...formInput, name: e.target.value })
-          }
+          onChange={(e) => setFormInput({ ...formInput, name: e.target.value })}
         />
         <textarea
           placeholder="Asset Description"
           className="mt-2 border rounded p-4"
           onChange={(e) =>
-            updateFormInput({ ...formInput, description: e.target.value })
+            setFormInput({ ...formInput, description: e.target.value })
           }
         />
         <input
-          placeholder="Asset Price in Eth"
+          placeholder="Asset Price in matic"
           className="mt-2 border rounded p-4"
           onChange={(e) =>
-            updateFormInput({ ...formInput, price: e.target.value })
+            setFormInput({ ...formInput, price: e.target.value })
           }
         />
         <input type="file" name="Asset" className="my-4" onChange={onChange} />
